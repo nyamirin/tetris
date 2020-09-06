@@ -19,10 +19,10 @@ function start_game() {
 function make_drop() {
     if (board[2][11]) log("game over");
     else {
-        drop_color1 = get_rint(3) + 1;
-        drop_color2 = get_rint(3) + 1;
-        drop_x = 2;
-        drop_y = 11;
+        drop_color1 = get_rint(6) + 1;
+        drop_color2 = get_rint(6) + 1;
+        drop_x = 4;
+        drop_y = 19;
         rot_stat = 0;
         show_drop();
     }

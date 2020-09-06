@@ -1,17 +1,17 @@
 body{
-    width:300;
+    width:270;
 }
 
 ul{
-    width: 400;
+    width: 250;
 }
 li{
     vertical-align: middle;
     text-align: center;
     display: inline-block;
     list-style: none;
-    width: 40;
-    height: 40;
+    width: 25;
+    height: 25;
 }
 
 ts{
