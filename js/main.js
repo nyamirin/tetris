@@ -1,10 +1,12 @@
 var ultxt = '<ul id="board_ul">'
 
 function init() {
+    make_preset();
     load_img();
     document.onkeydown = kpress;
     def_board();
     show_board();
+    show_fallboard();
 }
 
 function kpress() {
@@ -12,7 +14,7 @@ function kpress() {
     try {
         setlist[key]();
     }
-    catch (e) { log(e); }
+    catch (e) { log('key : ' + key + '\n' + e); }
 }
 
 function press_leftarrow() {

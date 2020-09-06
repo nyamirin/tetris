@@ -7,46 +7,51 @@ var delay = 1000;
 var timer;
 var bycnt = 1;
 var falling = 0;
+var cur_mino = 0;
+
+/*낙하 상태
+초기 0
+낙하중 1
+낙하완료/처리 2
+*/
 
 function start_game() {
-    show_board();
+    shuffle_bag();
     make_drop();
     sleep(delay);
     falling = 1;
-    fall_drop();
+    //fall_drop();
 }
 
 function make_drop() {
-    if (board[2][11]) log("game over");
+    if (board[4][19]) log("game over");
     else {
-        drop_color1 = get_rint(6) + 1;
-        drop_color2 = get_rint(6) + 1;
+        cur_mino = nextmino();
         drop_x = 4;
         drop_y = 19;
         rot_stat = 0;
-        show_drop();
+        show_fallmino();
+        log(rot_stat);
     }
 }
 
-function show_drop() {
-    board[drop_x][drop_y] = drop_color1;
-    switch (rot_stat) {
-        case 0:
-            board[drop_x][drop_y + 1] = drop_color2;
-            break;
-        case 1:
-            board[drop_x + 1][drop_y] = drop_color2;
-            break;
-        case 2:
-            board[drop_x][drop_y - 1] = drop_color2;
-            break;
-        case 3:
-            board[drop_x - 1][drop_y] = drop_color2;
-            break;
-    }
-    show_board();
+function rotate_cw() {
+    clear_fallboard();
+    rot_stat = (rot_stat + 1) % 4;
+    log(rot_stat);
+    show_fallmino();
 }
 
+function rotate_ccw() {
+    clear_fallboard();
+    if (rot_stat == 0) rot_stat = 3;
+    else rot_stat--;
+    log(rot_stat);
+    show_fallmino();
+
+}
+
+/*
 function blocked() {
     //log('blocked');
     make_drop();
@@ -492,4 +497,4 @@ function scan_drby() {
         }
     }
     show_board();
-}
+}*/

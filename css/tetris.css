@@ -31,3 +31,8 @@ li img{
     position: absolute;
     left: 47;
 }
+#fboard_div{
+    z-index: 2;
+    position: absolute;
+    top:-8;
+}
