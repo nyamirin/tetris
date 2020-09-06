@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="css/tetris.css" rel="stylesheet" type="text/css">
+    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/board.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/shared.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/game.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/keyset.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body onload="init();">
+    <!--<image id='bg' src='img/bg.png' />-->
+    <div id="board_div"></div>
+    <div id="control_div">
+        <button id='cw' onclick="start_game();">start</button>
+        <button id='cw' onclick="rotate_cw();">cw</button>
+        <button id='ccw' onclick="rotate_ccw();">ccw</button>
+        <button id='left' onclick="move_left();">←</button>
+        <button id='left' onclick="press_uparrow();">↑</button>
+        <button id='down' onclick=" press_downarrow();">↓</button>
+        <button id='right' onclick="move_right();">→</button>
+    </div>
+    <div id='ts'></div>
+</body>
+
+</html>

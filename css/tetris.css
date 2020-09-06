@@ -1,0 +1,33 @@
+body{
+    width:300;
+}
+
+ul{
+    width: 400;
+}
+li{
+    vertical-align: middle;
+    text-align: center;
+    display: inline-block;
+    list-style: none;
+    width: 40;
+    height: 40;
+}
+
+ts{
+    position: absolute;
+}
+
+li img{
+    position: relative;
+}
+
+#control_div{
+    position: relative;
+    left: 45;
+}
+
+#bg{
+    position: absolute;
+    left: 47;
+}
