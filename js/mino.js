@@ -88,3 +88,16 @@ function show_fallmino() {
     }
     show_fallboard();
 }
+
+function stick() {
+    for (let x = 0; x < 10; x++) {
+        for (let y = 0; y < 21; y++) {
+            if (fall_board[x][y]) {
+                board[x][y] = fall_board[x][y];
+            }
+        }
+    }
+    clear_fallboard();
+    show_board();
+    make_drop();
+}

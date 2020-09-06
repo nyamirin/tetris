@@ -4,7 +4,7 @@ var fall_board = [];
 
 function def_board() {
     for (let x = 0; x < 10; x++) {
-        board[x] = {};
+        board[x] = new Array();
         fall_board[x] = {};
         board_check[x] = {};
         for (let y = 0; y < 21; y++) {

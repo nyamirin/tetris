@@ -16,20 +16,10 @@ function kpress() {
     }
     catch (e) { log('key : ' + key + '\n' + e); }
 }
-
-function press_leftarrow() {
-    move_left();
+function downarrow() {
+    if (falling) move_down();
 }
 
-function press_rightarrow() {
-    move_right();
-
-}
-/*
-function press_downarrow() {
-    fall_drop();
-}
-*/
 
 function load_img() {
     imgarr = ['img/b1.png', 'img/b2.png', 'img/b3.png', 'img/b4.png']
