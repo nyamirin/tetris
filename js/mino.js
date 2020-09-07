@@ -75,8 +75,10 @@ function stick() {
             }
         }
     }
+    holdc = 0;
     clear_fallboard();
     show_board();
+    lineclear();
     make_drop();
 }
 

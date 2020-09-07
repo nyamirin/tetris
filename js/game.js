@@ -8,6 +8,8 @@ var timer;
 var bycnt = 1;
 var falling = 0;
 var cur_mino = 0;
+var hold_mino = 0;
+var holdc = 0;
 
 /*낙하 상태
 처리중 0
@@ -202,4 +204,30 @@ function can_right() {
     }
     if (!cnt) return 1;
     else return 0;
+}
+
+function hold() {
+    if (!holdc) {
+        holdc = 1;
+        if (!hold_mino) {
+            clearTimeout(timer);
+            hold_mino = cur_mino;
+            clear_fallboard();
+            make_drop();
+        }
+        else {
+            clearTimeout(timer);
+            let tmp = hold_mino;
+            hold_mino = cur_mino;
+            cur_mino = tmp;
+            clear_fallboard();
+            falling = 1;
+            drop_x = 4;
+            drop_y = 19;
+            rot_stat = 0;
+            show_fallmino();
+            timer = setTimeout(move_down, delay);
+        }
+    }
+    show_hold();
 }

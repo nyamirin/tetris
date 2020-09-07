@@ -52,6 +52,7 @@ function show_board() {
     }
     ultxt += "</ul>";
     $("board_div").innerHTML = ultxt;
+    show_hold();
 }
 
 function show_fallboard() {
@@ -77,4 +78,29 @@ function print_board() {
         ultxt += '\n';
     }
     log(ultxt);
+}
+
+function lineclear() {
+    for (let y = 20; y >= 0; y--) {
+        let cnt = 0;
+        for (let x = 0; x < 10; x++) {
+            if (board[x][y]) cnt++;
+        }
+        if (cnt == 10) {
+            for (let l = y; l < 20; l++) {
+                for (let k = 0; k < 10; k++) {
+                    board[k][l] = board[k][l + 1];
+                }
+            }
+            show_board();
+        }
+        else cnt = 0;
+    }
+}
+
+function show_hold() {
+    let ultxt;
+    ultxt = '<img src="img/h' + hold_mino + '.png">';
+    $("hold_div").innerHTML = ultxt;
+
 }

@@ -14,8 +14,9 @@ li{
     height: 25;
 }
 
-ts{
+#ts{
     position: absolute;
+    top:570;
 }
 
 li img{
