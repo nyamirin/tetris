@@ -31,7 +31,7 @@ function make_drop() {
         drop_y = 19;
         rot_stat = 0;
         show_fallmino();
-        setTimeout(move_down, delay);
+        timer = setTimeout(move_down, delay);
     }
 }
 
@@ -73,7 +73,7 @@ function move_down() {
         }
         else {
             falling = 0;
-            setTimeout(stick, delay);
+            timer = setTimeout(stick, delay);
         }
     }
 }
@@ -86,14 +86,12 @@ function downarrow() {
 }
 
 function hard_drop() {
-    if (falling) {
-        clearTimeout(timer);
-        while (can_down()) {
-            drop_y--;
-            show_fallmino();
-        }
-        stick();
+    clearTimeout(timer);
+    while (can_down()) {
+        drop_y--;
+        show_fallmino();
     }
+    stick();
 }
 
 function can_down() {
