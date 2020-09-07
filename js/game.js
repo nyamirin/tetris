@@ -68,18 +68,34 @@ function move_down() {
     if (can_down()) {
         drop_y--;
         show_fallmino();
+        timer = setTimeout(() => {
+            if (can_down()) {
+                falling = 1;
+                move_down();
+            }
+            else {
+                falling = 0;
+                stick();
+            }
+        }, delay);
+
+        /*
         if (can_down()) {
             timer = setTimeout(move_down, delay);
         }
         else {
             falling = 0;
             timer = setTimeout(stick, delay);
-        }
+        }*/
+    }
+    else {
+        falling = 0;
+        stick();
     }
 }
 
 function downarrow() {
-    if (falling) {
+    if (can_down()) {
         clearTimeout(timer);
         move_down();
     }
@@ -109,9 +125,12 @@ function can_down() {
 
 function can_ccw() {
     let cnt = 0;
+    let crt;
+    if (rot_stat == 0) crt = 3;
+    else crt = rot_stat - 1;
     for (let i = 0; i < 4; i++) {
-        let cx = drop_x + mino_locx[cur_mino][(rot_stat + 1) % 4][i];
-        let cy = drop_y + mino_locy[cur_mino][(rot_stat + 1) % 4][i];
+        let cx = drop_x + mino_locx[cur_mino][crt][i];
+        let cy = drop_y + mino_locy[cur_mino][crt][i];
         if (-1 < cx && cx < 10 && -1 < cy) cnt += board[cx][cy];
         else return 0;
     }
@@ -122,12 +141,10 @@ function can_ccw() {
 
 function can_cw() {
     let cnt = 0;
-    let crt;
-    if (rot_stat == 0) crt = 3;
-    else crt = rot_stat + 1;
+
     for (let i = 0; i < 4; i++) {
-        let cx = drop_x + mino_locx[cur_mino][crt][i];
-        let cy = drop_y + mino_locy[cur_mino][crt][i];
+        let cx = drop_x + mino_locx[cur_mino][(rot_stat + 1) % 4][i];
+        let cy = drop_y + mino_locy[cur_mino][(rot_stat + 1) % 4][i];
         if (-1 < cx && cx < 10 && -1 < cy) cnt += board[cx][cy];
         else return 0;
     }
