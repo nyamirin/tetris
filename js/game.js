@@ -40,6 +40,24 @@ function rotate_cw() {
         rot_stat = (rot_stat + 1) % 4;
         show_fallmino();
     }
+    else {
+        let cur;
+        if (!cur_mino) cur = 1;
+        else cur = 0;
+        let dx = drop_x; let dy = drop_y;
+        for (let i = 0; i < 4; i++) {
+            drop_x += xpre_cw[cur][rot_stat][i];
+            drop_y += ypre_cw[cur][rot_stat][i];
+            if (can_cw()) {
+                rot_stat = (rot_stat + 1) % 4;
+                show_fallmino();
+                return;
+            }
+            else {
+                drop_x = dx; drop_y = dy;
+            }
+        }
+    }
 }
 
 function rotate_ccw() {
@@ -47,6 +65,25 @@ function rotate_ccw() {
         if (rot_stat == 0) rot_stat = 3;
         else rot_stat--;
         show_fallmino();
+    }
+    else {
+        let cur;
+        if (!cur_mino) cur = 1;
+        else cur = 0;
+        let dx = drop_x; let dy = drop_y;
+        for (let i = 0; i < 4; i++) {
+            drop_x += xpre_ccw[cur][rot_stat][i];
+            drop_y += ypre_ccw[cur][rot_stat][i];
+            if (can_ccw()) {
+                if (rot_stat == 0) rot_stat = 3;
+                else rot_stat--;
+                show_fallmino();
+                return;
+            }
+            else {
+                drop_x = dx; drop_y = dy;
+            }
+        }
     }
 }
 

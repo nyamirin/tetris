@@ -13,6 +13,10 @@ var bag = [1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7];
 var bagcnt = 0;
 var mino_locx = []
 var mino_locy = []
+var xpre_cw = []
+var ypre_cw = []
+var xpre_ccw = []
+var ypre_ccw = []
 
 function bag_init() {
     let tmp;
@@ -46,7 +50,6 @@ function shuffle_bag() {
 }
 
 function nextmino() {
-    $('ts').innerText += bag + '\n';
     rt = bag[bagcnt++];
     if (bagcnt != 7) return rt;
     else {
@@ -83,9 +86,21 @@ function make_preset() {
         mino_locx[i] = new Array();
         mino_locy[i] = new Array();
         for (let j = 0; j < 4; j++) {
-
             mino_locx[i][j] = new Array();
             mino_locy[i][j] = new Array();
+        }
+    }
+
+    for (let i = 0; i < 2; i++) {
+        xpre_cw[i] = new Array();
+        xpre_ccw[i] = new Array();
+        ypre_cw[i] = new Array();
+        ypre_ccw[i] = new Array();
+        for (let j = 0; j < 4; j++) {
+            xpre_cw[i][j] = new Array();
+            xpre_ccw[i][j] = new Array();
+            ypre_cw[i][j] = new Array();
+            ypre_ccw[i][j] = new Array();
         }
     }
 
@@ -124,4 +139,23 @@ function make_preset() {
     mino_locx[7][1][0] = 0; mino_locy[7][1][0] = 0; mino_locx[7][1][1] = 0; mino_locy[7][1][1] = -1; mino_locx[7][1][2] = 1; mino_locy[7][1][2] = 0; mino_locx[7][1][3] = 1; mino_locy[7][1][3] = 1;
     mino_locx[7][2][0] = 0; mino_locy[7][2][0] = 0; mino_locx[7][2][1] = 0; mino_locy[7][2][1] = -1; mino_locx[7][2][2] = -1; mino_locy[7][2][2] = 0; mino_locx[7][2][3] = 1; mino_locy[7][2][3] = -1;
     mino_locx[7][3][0] = 0; mino_locy[7][3][0] = 0; mino_locx[7][3][1] = 0; mino_locy[7][3][1] = 1; mino_locx[7][3][2] = -1; mino_locy[7][3][2] = 0; mino_locx[7][3][3] = -1; mino_locy[7][3][3] = -1;
+
+    //[j~t미노][0~170도][프리셋0~4]
+    xpre_cw[0][0][0] = -1; ypre_cw[0][0][0] = 0; xpre_cw[0][0][1] = -1; ypre_cw[0][0][1] = 1; xpre_cw[0][0][2] = 0; ypre_cw[0][0][2] = -2; xpre_cw[0][0][3] = -1; ypre_cw[0][0][3] = -2;
+    xpre_ccw[0][1][0] = 1; ypre_ccw[0][1][0] = 0; xpre_ccw[0][1][1] = 1; ypre_ccw[0][1][1] = -1; xpre_ccw[0][1][2] = 0; ypre_ccw[0][1][2] = 2; xpre_ccw[0][1][3] = 1; ypre_ccw[0][1][3] = 2;
+    xpre_cw[0][1][0] = 1; ypre_cw[0][1][0] = 0; xpre_cw[0][1][1] = 1; ypre_cw[0][1][1] = -1; xpre_cw[0][1][2] = 0; ypre_cw[0][1][2] = 2; xpre_cw[0][1][3] = 1; ypre_cw[0][1][3] = 2;
+    xpre_ccw[0][2][0] = -1; ypre_ccw[0][2][0] = 0; xpre_ccw[0][2][1] = -1; ypre_ccw[0][2][1] = 1; xpre_ccw[0][2][2] = 0; ypre_ccw[0][2][2] = -2; xpre_ccw[0][2][3] = -1; ypre_ccw[0][2][3] = -2;
+    xpre_cw[0][2][0] = 1; ypre_cw[0][2][0] = 0; xpre_cw[0][2][1] = 1; ypre_cw[0][2][1] = 1; xpre_cw[0][2][2] = 0; ypre_cw[0][2][2] = -2; xpre_cw[0][2][3] = 1; ypre_cw[0][2][3] = -2;
+    xpre_ccw[0][3][0] = -1; ypre_ccw[0][3][0] = 0; xpre_ccw[0][3][1] = -1; ypre_ccw[0][3][1] = -1; xpre_ccw[0][3][2] = 0; ypre_ccw[0][3][2] = 2; xpre_ccw[0][3][3] = -1; ypre_ccw[0][3][3] = 2;
+    xpre_cw[0][3][0] = -1; ypre_cw[0][3][0] = 0; xpre_cw[0][3][1] = -1; ypre_cw[0][3][1] = -1; xpre_cw[0][3][2] = 0; ypre_cw[0][3][2] = 2; xpre_cw[0][3][3] = -1; ypre_cw[0][3][3] = 2;
+    xpre_ccw[0][0][0] = 1; ypre_ccw[0][0][0] = 0; xpre_ccw[0][0][1] = 1; ypre_ccw[0][0][1] = 1; xpre_ccw[0][0][2] = 0; ypre_ccw[0][0][2] = -2; xpre_ccw[0][0][3] = 1; ypre_ccw[0][0][3] = -2;
+    //[i미노][0~170도][프리셋0~4]
+    xpre_cw[1][0][0] = -2; ypre_cw[1][0][0] = 0; xpre_cw[1][0][1] = 1; ypre_cw[1][0][1] = 0; xpre_cw[1][0][2] = -2; ypre_cw[1][0][2] = -1; xpre_cw[1][0][3] = 1; ypre_cw[1][0][3] = 2;
+    xpre_ccw[1][1][0] = 2; ypre_ccw[1][1][0] = 0; xpre_ccw[1][1][1] = -1; ypre_ccw[1][1][1] = 0; xpre_ccw[1][1][2] = 2; ypre_ccw[1][1][2] = 1; xpre_ccw[1][1][3] = -1; ypre_ccw[1][1][3] = -2;
+    xpre_cw[1][1][0] = -1; ypre_cw[1][1][0] = 0; xpre_cw[1][1][1] = 2; ypre_cw[1][1][1] = 0; xpre_cw[1][1][2] = -1; ypre_cw[1][1][2] = 2; xpre_cw[1][1][3] = 2; ypre_cw[1][1][3] = -1;
+    xpre_ccw[1][2][0] = 1; ypre_ccw[1][2][0] = 0; xpre_ccw[1][2][1] = -2; ypre_ccw[1][2][1] = 0; xpre_ccw[1][2][2] = 1; ypre_ccw[1][2][2] = -2; xpre_ccw[1][2][3] = -2; ypre_ccw[1][2][3] = 1;
+    xpre_cw[1][2][0] = 2; ypre_cw[1][2][0] = 0; xpre_cw[1][2][1] = -1; ypre_cw[1][2][1] = 0; xpre_cw[1][2][2] = 2; ypre_cw[1][2][2] = 1; xpre_cw[1][2][3] = -1; ypre_cw[1][2][3] = -2;
+    xpre_ccw[1][3][0] = -2; ypre_ccw[1][3][0] = 0; xpre_ccw[1][3][1] = 1; ypre_ccw[1][3][1] = 0; xpre_ccw[1][3][2] = -2; ypre_ccw[1][3][2] = -1; xpre_ccw[1][3][3] = 1; ypre_ccw[1][3][3] = 2;
+    xpre_cw[1][3][0] = 1; ypre_cw[1][3][0] = 0; xpre_cw[1][3][1] = -2; ypre_cw[1][3][1] = 0; xpre_cw[1][3][2] = 1; ypre_cw[1][3][2] = -2; xpre_cw[1][3][3] = -2; ypre_cw[1][3][3] = 1;
+    xpre_ccw[1][0][0] = -1; ypre_ccw[1][0][0] = 0; xpre_ccw[1][0][1] = 2; ypre_ccw[1][0][1] = 0; xpre_ccw[1][0][2] = -1; ypre_ccw[1][0][2] = 2; xpre_ccw[1][0][3] = -2; ypre_ccw[1][0][3] = -1;
 }
