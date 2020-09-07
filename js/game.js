@@ -15,7 +15,7 @@ var cur_mino = 0;
 */
 
 function start_game() {
-    shuffle_bag();
+    bag_init();
     make_drop();
     sleep(delay);
     falling = 1;
@@ -78,15 +78,6 @@ function move_down() {
                 stick();
             }
         }, delay);
-
-        /*
-        if (can_down()) {
-            timer = setTimeout(move_down, delay);
-        }
-        else {
-            falling = 0;
-            timer = setTimeout(stick, delay);
-        }*/
     }
     else {
         falling = 0;

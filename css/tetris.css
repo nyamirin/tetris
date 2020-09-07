@@ -23,8 +23,9 @@ li img{
 }
 
 #control_div{
-    position: relative;
-    left: 45;
+    position: absolute;
+    top:540;
+    left: 140;
 }
 
 #bg{
@@ -35,4 +36,28 @@ li img{
     z-index: 2;
     position: absolute;
     top:-8;
+    left: 100;
+}
+#board_div{
+    position: absolute;
+    top:-8;
+    left: 100;
+}
+
+
+#next_div{
+    border: 1px solid black;
+    height: 100;
+    width: 100;
+    position: absolute;
+    top:20;
+    left:410;
+}
+
+#hold_div{
+    border: 1px solid black;
+    height: 100;
+    width: 100;
+    position: absolute;
+    top:20;
 }

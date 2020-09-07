@@ -9,10 +9,75 @@
 7 : z
 */
 
-var bag = [1, 2, 3, 4, 5, 6, 7];
+var bag = [1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7];
 var bagcnt = 0;
 var mino_locx = []
 var mino_locy = []
+
+function bag_init() {
+    let tmp;
+    let random;
+    for (let i = 7; i > 1; i--) {
+        random = get_rint(6);
+        tmp = bag[random];
+        bag[random] = bag[i - 1];
+        bag[i - 1] = tmp;
+    }
+    for (let i = 14; i > 7; i--) {
+        random = get_rint(6) + 7;
+        tmp = bag[random];
+        bag[random] = bag[i - 1];
+        bag[i - 1] = tmp;
+    }
+}
+
+function shuffle_bag() {
+    for (let i = 0; i < 7; i++) {
+        bag[i] = bag[i + 7];
+    }
+    let tmp;
+    let random;
+    for (let i = 14; i > 7; i--) {
+        random = get_rint(6) + 7;
+        tmp = bag[random];
+        bag[random] = bag[i - 1];
+        bag[i - 1] = tmp;
+    }
+}
+
+function nextmino() {
+    $('ts').innerText += bag + '\n';
+    rt = bag[bagcnt++];
+    if (bagcnt != 7) return rt;
+    else {
+        bagcnt = 0;
+        shuffle_bag();
+        return rt;
+    }
+}
+
+function show_fallmino() {
+    clear_fallboard();
+    for (let i = 0; i < 4; i++) {
+        fall_board[drop_x + mino_locx[cur_mino][rot_stat][i]][drop_y + mino_locy[cur_mino][rot_stat][i]] = cur_mino;
+    }
+    show_fallboard();
+}
+
+function stick() {
+    for (let x = 0; x < 10; x++) {
+        for (let y = 0; y < 21; y++) {
+            if (fall_board[x][y]) {
+                board[x][y] = fall_board[x][y];
+            }
+        }
+    }
+    clear_fallboard();
+    show_board();
+    make_drop();
+}
+
+
 function make_preset() {
     for (let i = 1; i < 8; i++) {
         mino_locx[i] = new Array();
@@ -59,45 +124,4 @@ function make_preset() {
     mino_locx[7][1][0] = 0; mino_locy[7][1][0] = 0; mino_locx[7][1][1] = 0; mino_locy[7][1][1] = -1; mino_locx[7][1][2] = 1; mino_locy[7][1][2] = 0; mino_locx[7][1][3] = 1; mino_locy[7][1][3] = 1;
     mino_locx[7][2][0] = 0; mino_locy[7][2][0] = 0; mino_locx[7][2][1] = 0; mino_locy[7][2][1] = -1; mino_locx[7][2][2] = -1; mino_locy[7][2][2] = 0; mino_locx[7][2][3] = 1; mino_locy[7][2][3] = -1;
     mino_locx[7][3][0] = 0; mino_locy[7][3][0] = 0; mino_locx[7][3][1] = 0; mino_locy[7][3][1] = 1; mino_locx[7][3][2] = -1; mino_locy[7][3][2] = 0; mino_locx[7][3][3] = -1; mino_locy[7][3][3] = -1;
-}
-function shuffle_bag() {
-    let tmp;
-    let random;
-    for (let i = 7; i > 1; i--) {
-        random = get_rint(6);
-        tmp = bag[random];
-        bag[random] = bag[i - 1];
-        bag[i - 1] = tmp;
-    }
-}
-
-function nextmino() {
-    if (bagcnt != 6) return bag[bagcnt++];
-    else {
-        let tmp = bag[6]
-        bagcnt = 0;
-        shuffle_bag();
-        return tmp;
-    }
-}
-
-function show_fallmino() {
-    clear_fallboard();
-    for (let i = 0; i < 4; i++) {
-        fall_board[drop_x + mino_locx[cur_mino][rot_stat][i]][drop_y + mino_locy[cur_mino][rot_stat][i]] = cur_mino;
-    }
-    show_fallboard();
-}
-
-function stick() {
-    for (let x = 0; x < 10; x++) {
-        for (let y = 0; y < 21; y++) {
-            if (fall_board[x][y]) {
-                board[x][y] = fall_board[x][y];
-            }
-        }
-    }
-    clear_fallboard();
-    show_board();
-    make_drop();
 }
