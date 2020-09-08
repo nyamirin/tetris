@@ -17,6 +17,8 @@ var xpre_cw = []
 var ypre_cw = []
 var xpre_ccw = []
 var ypre_ccw = []
+var rx;
+var ry;
 
 function bag_init() {
     let tmp;
@@ -64,8 +66,31 @@ function show_fallmino() {
     for (let i = 0; i < 4; i++) {
         fall_board[drop_x + mino_locx[cur_mino][rot_stat][i]][drop_y + mino_locy[cur_mino][rot_stat][i]] = cur_mino;
     }
+    make_tmino();
     show_fallboard();
 }
+
+function make_tmino() {
+    rx = drop_x;
+    ry = drop_y;
+    while (can_down(rx, ry)) {
+        ry--;
+    }
+    clear_tboard();
+    for (let i = 0; i < 4; i++) {
+        t_board[rx + mino_locx[cur_mino][rot_stat][i]][ry + mino_locy[cur_mino][rot_stat][i]] = cur_mino;
+    }
+    show_tboard();
+}
+
+function show_tmino() {
+    clear_tboard();
+    for (let i = 0; i < 4; i++) {
+        t_board[rx + mino_locx[cur_mino][rot_stat][i]][ry + mino_locy[cur_mino][rot_stat][i]] = cur_mino;
+    }
+    show_tboard();
+}
+
 
 function stick() {
     for (let x = 0; x < 10; x++) {
@@ -78,6 +103,7 @@ function stick() {
     holdc = 0;
     clear_fallboard();
     show_board();
+    show_next();
     lineclear();
     make_drop();
 }

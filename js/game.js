@@ -33,6 +33,7 @@ function make_drop() {
         drop_y = 19;
         rot_stat = 0;
         show_fallmino();
+        show_next();
         timer = setTimeout(move_down, delay);
     }
 }
@@ -141,16 +142,27 @@ function hard_drop() {
 }
 
 function can_down() {
-    if (!falling) return 0;
     let cnt = 0;
-    for (let i = 0; i < 4; i++) {
-        let cx = drop_x + mino_locx[cur_mino][rot_stat][i];
-        let cy = drop_y + mino_locy[cur_mino][rot_stat][i] - 1;
-        if (-1 < cy) cnt += board[cx][cy];
+    if (!arguments.length) {
+        if (!falling) return 0;
+        for (let i = 0; i < 4; i++) {
+            let cx = drop_x + mino_locx[cur_mino][rot_stat][i];
+            let cy = drop_y + mino_locy[cur_mino][rot_stat][i] - 1;
+            if (-1 < cy) cnt += board[cx][cy];
+            else return 0;
+        }
+        if (!cnt) return 1;
         else return 0;
     }
-    if (!cnt) return 1;
-    else return 0;
+    else {
+        for (let i = 0; i < 4; i++) {
+            let cx = arguments[0] + mino_locx[cur_mino][rot_stat][i];
+            let cy = arguments[1] + mino_locy[cur_mino][rot_stat][i] - 1;
+            if (-1 < cy) cnt += board[cx][cy];
+            else return 0;
+        }
+        if (!cnt) return 1;
+    }
 }
 
 function can_ccw() {

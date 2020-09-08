@@ -1,6 +1,7 @@
 var ultxt = '<ul id="board_ul">'
 
 function init() {
+    nextdiv();
     make_preset();
     load_img();
     document.onkeydown = kpress;
@@ -28,4 +29,17 @@ function load_img() {
         let img = new Image();
         img.src = imgarr[i];
     }
+}
+
+function nextdiv() {
+    for (let i = 0; i < 5; i++) {
+        $('next_div').innerHTML += '<div class="nd" id="nd' + i + '"></div>';
+    }
+}
+
+function show_next() {
+    for (let i = 0; i < 5; i++) {
+        $('nd' + i).innerHTML = '<img src="img/h' + bag[bagcnt + i] + '.png">'
+    }
+
 }
