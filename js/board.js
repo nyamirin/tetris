@@ -1,5 +1,4 @@
 var board = [];
-var board_check = [];
 var fall_board = [];
 var t_board = [];
 
@@ -8,12 +7,10 @@ function def_board() {
         board[x] = new Array();
         fall_board[x] = {};
         t_board[x] = {};
-        board_check[x] = {};
         for (let y = 0; y < 21; y++) {
             board[x][y] = 0;
             fall_board[x][y] = 0;
             t_board[x][y] = 0;
-            board_check[x][y] = 0;
         }
     }
 }
@@ -42,14 +39,6 @@ function clear_tboard() {
     }
 }
 
-function clear_check() {
-    for (let x = 0; x < 10; x++) {
-        for (let y = 0; y < 21; y++) {
-            board_check[x][y] = 0;
-        }
-    }
-}
-
 function show_board() {
     //10*(12+1)
     let ultxt = '<ul id="board_ul">';
@@ -57,7 +46,6 @@ function show_board() {
         for (let x = 0; x < 10; x++) {
             ultxt += "<li>";
             ultxt += '<img src="img/b' + board[x][y] + '.png">';
-            //ultxt += y + ',' + x;
             ultxt += "</li>";
         }
     }
@@ -72,7 +60,6 @@ function show_fallboard() {
         for (let x = 0; x < 10; x++) {
             ultxt += "<li>";
             ultxt += '<img src="img/b' + fall_board[x][y] + '.png">';
-            //ultxt += y + ',' + x;
             ultxt += "</li>";
         }
     }

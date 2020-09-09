@@ -1,5 +1,3 @@
-var drop_color1;
-var drop_color2;
 var drop_x;
 var drop_y;
 var rot_stat = 0;
@@ -9,26 +7,18 @@ var bycnt = 1;
 var falling = 0;
 var cur_mino = 0;
 var hold_mino = 0;
-var holdc = 0;
-
-/*낙하 상태
-처리중 0
-낙하중 1
-*/
+var holding = 0;
 
 function start_game() {
     bag_init();
     make_drop();
-    sleep(delay);
-    falling = 1;
-    //fall_drop();
 }
 
 function make_drop() {
     if (board[4][19]) log("game over");
     else {
         falling = 1;
-        cur_mino = nextmino();
+        cur_mino = next_mino();
         drop_x = 4;
         drop_y = 19;
         rot_stat = 0;
@@ -42,12 +32,12 @@ function rotate_cw() {
     if (can_cw()) {
         rot_stat = (rot_stat + 1) % 4;
         show_fallmino();
-    }
-    else {
+    } else { //kick_wall
         let cur;
         if (!cur_mino) cur = 1;
         else cur = 0;
-        let dx = drop_x; let dy = drop_y;
+        let dx = drop_x;
+        let dy = drop_y;
         for (let i = 0; i < 4; i++) {
             drop_x += xpre_cw[cur][rot_stat][i];
             drop_y += ypre_cw[cur][rot_stat][i];
@@ -55,9 +45,9 @@ function rotate_cw() {
                 rot_stat = (rot_stat + 1) % 4;
                 show_fallmino();
                 return;
-            }
-            else {
-                drop_x = dx; drop_y = dy;
+            } else {
+                drop_x = dx;
+                drop_y = dy;
             }
         }
     }
@@ -68,12 +58,12 @@ function rotate_ccw() {
         if (rot_stat == 0) rot_stat = 3;
         else rot_stat--;
         show_fallmino();
-    }
-    else {
+    } else { //kick_wall
         let cur;
         if (!cur_mino) cur = 1;
         else cur = 0;
-        let dx = drop_x; let dy = drop_y;
+        let dx = drop_x;
+        let dy = drop_y;
         for (let i = 0; i < 4; i++) {
             drop_x += xpre_ccw[cur][rot_stat][i];
             drop_y += ypre_ccw[cur][rot_stat][i];
@@ -82,9 +72,9 @@ function rotate_ccw() {
                 else rot_stat--;
                 show_fallmino();
                 return;
-            }
-            else {
-                drop_x = dx; drop_y = dy;
+            } else {
+                drop_x = dx;
+                drop_y = dy;
             }
         }
     }
@@ -110,16 +100,13 @@ function move_down() {
         show_fallmino();
         timer = setTimeout(() => {
             if (can_down()) {
-                falling = 1;
                 move_down();
-            }
-            else {
+            } else {
                 falling = 0;
                 stick();
             }
         }, delay);
-    }
-    else {
+    } else {
         falling = 0;
         stick();
     }
@@ -153,8 +140,7 @@ function can_down() {
         }
         if (!cnt) return 1;
         else return 0;
-    }
-    else {
+    } else {
         for (let i = 0; i < 4; i++) {
             let cx = arguments[0] + mino_locx[cur_mino][rot_stat][i];
             let cy = arguments[1] + mino_locy[cur_mino][rot_stat][i] - 1;
@@ -162,6 +148,7 @@ function can_down() {
             else return 0;
         }
         if (!cnt) return 1;
+        else return 0;
     }
 }
 
@@ -178,12 +165,10 @@ function can_ccw() {
     }
     if (!cnt) return 1;
     else return 0;
-
 }
 
 function can_cw() {
     let cnt = 0;
-
     for (let i = 0; i < 4; i++) {
         let cx = drop_x + mino_locx[cur_mino][(rot_stat + 1) % 4][i];
         let cy = drop_y + mino_locy[cur_mino][(rot_stat + 1) % 4][i];
@@ -219,17 +204,15 @@ function can_right() {
 }
 
 function hold() {
-    if (!holdc) {
-        holdc = 1;
+    if (!holding) {
+        holding = 1;
+        clearTimeout(timer);
+        let tmp = hold_mino;
         if (!hold_mino) {
-            clearTimeout(timer);
             hold_mino = cur_mino;
             clear_fallboard();
             make_drop();
-        }
-        else {
-            clearTimeout(timer);
-            let tmp = hold_mino;
+        } else {
             hold_mino = cur_mino;
             cur_mino = tmp;
             clear_fallboard();
